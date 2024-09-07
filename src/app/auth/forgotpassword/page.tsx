@@ -1,12 +1,11 @@
 import React from 'react';
-import LoginForm from './_components/LoginForm';
-import LoginImage from "../../../../public/assets/LoginImage.png"
+import ForgotPasswordForm from './_components/forgotpassword';
 
 const LoginPage: React.FC = () => {
   return (
     <div className='Container-01'>
         
-        <LoginForm></LoginForm>
+        <ForgotPasswordForm></ForgotPasswordForm>
        
       
        

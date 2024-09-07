@@ -1,6 +1,5 @@
-
-export default function Page() {
-  return (
-    <p>this is dashboard</p> 
-  )
-}
+export default function page() {
+    return (
+      <p>this is homepage</p> 
+    )
+  }
