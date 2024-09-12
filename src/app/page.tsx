@@ -1,102 +1,16 @@
 import React from 'react';
 import { Button, Carousel } from 'antd';
 import { SearchOutlined, BellOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import Header from '@/layout/_component/Header/Header';
+import Navbar from '@/layout/_component/Header/navbar/Navbar';
 
 const HomePage: React.FC = () => {
   return (
     <div className="bg-gray-50">
       {/* Header */}
-      <header className="bg-[#93A267] text-white py-2">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Left Section - Logo */}
-        <div className="flex items-center space-x-4">
-          <img
-            src="/path-to-logo.png" // Replace with your logo path
-            alt="Việt Nông"
-            className="w-16 h-auto"
-          />
-          <div className="text-sm">
-            <a href="#" className="hover:underline">
-              Trở thành người bán
-            </a>{' '}
-            |{' '}
-            <a href="#" className="hover:underline">
-              Tải ứng dụng
-            </a>
-          </div>
-        </div>
-
-        {/* Middle Section - Search */}
-        <div className="flex items-center w-1/2">
-          <input
-            type="text"
-            placeholder="Tìm kiếm"
-            className="w-full p-2 rounded-l-full text-black focus:outline-none"
-          />
-          <Button
-            type="primary"
-            icon={<SearchOutlined />}
-            className="rounded-r-full h-auto"
-            style={{
-              backgroundColor: "#93A267",
-              borderColor: "#93A267",
-              color: "white",
-              padding: "4px",
-            }}
-          />
-        </div>
-
-        {/* Right Section - Links */}
-        <div className="flex items-center space-x-4 text-sm">
-          <Button type="link" className="text-white">
-            <BellOutlined /> Thông báo
-          </Button>
-          <Button type="link" className="text-white">
-            <QuestionCircleOutlined /> Hỗ trợ
-          </Button>
-          <Button type="link" className="text-white">
-            Đăng ký
-          </Button>
-          <Button type="link" className="text-white">
-            Đăng nhập
-          </Button>
-        </div>
-      </div>
-    </header>
+      <Header></Header>
     <div>
-    <nav className="flex justify-center items-center space-x-8 py-4 bg-white shadow-md">
-    <a
-      href="#home"
-      className="text-lg font-semibold text-gray-700 hover:text-[#93A267] border-b-4 border-transparent hover:border-[#93A267] pb-2 transition duration-300"
-    >
-      Trang chủ
-    </a>
-    <a
-      href="#news"
-      className="text-lg font-semibold text-gray-500 hover:text-[#93A267] border-b-4 border-transparent hover:border-[#93A267] pb-2 transition duration-300"
-    >
-      Tin tức
-    </a>
-    <a
-      href="#handbook"
-      className="text-lg font-semibold text-gray-500 hover:text-[#93A267] border-b-4 border-transparent hover:border-[#93A267] pb-2 transition duration-300"
-    >
-      Cẩm nang
-    </a>
-    <a
-      href="#market"
-      className="text-lg font-semibold text-gray-500 hover:text-[#93A267] border-b-4 border-transparent hover:border-[#93A267] pb-2 transition duration-300"
-    >
-      Chợ
-    </a>
-    <a
-      href="#cart"
-      className="text-lg font-semibold text-gray-500 hover:text-[#93A267] border-b-4 border-transparent hover:border-[#93A267] pb-2 transition duration-300"
-    >
-      Giỏ hàng
-    </a>
-  </nav>
-
+      <Navbar></Navbar>
       {/* Main Banner */}
       <section
     className="relative h-[500px] md:h-[600px] bg-cover bg-center border-4 border-[#93A267] rounded-3xl overflow-hidden"
