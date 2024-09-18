@@ -2,12 +2,18 @@ import React from "react";
 import './RegisterForm.css';
 import {FaUser   } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const RegisterForm = () => {
     return (
     
      <div className="wrapper">
             <form action="">
+            <div>
+                <a href="/">
+                <IoIosArrowRoundBack className="back-icon"></IoIosArrowRoundBack>
+                </a>
+                </div>
                 <h1>Register</h1>
                 <div className="input-box">
                     <input type="text" placeholder="Username" required/>

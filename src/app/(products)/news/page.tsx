@@ -2,6 +2,8 @@ import React from 'react';
 import Header from '@/layout/_component/Header/Header';
 import Navbar from '@/layout/_component/Header/navbar/Navbar';
 import KnowledgeSection from '@/components/_knowledgsection/KnowledgeSection';
+import NewsSection from '@/components/_newssection/NewsSection';
+import HeaderNews from '@/components/_newssection/_component/HeaderNews';
 
 const page: React.FC = () => {
   return (
@@ -11,7 +13,7 @@ const page: React.FC = () => {
         <div>
       <Navbar></Navbar>
       </div>
-      <KnowledgeSection></KnowledgeSection>
+      <HeaderNews></HeaderNews>
 
     </div>
   );
