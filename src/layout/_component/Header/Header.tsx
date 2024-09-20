@@ -1,18 +1,22 @@
 import React from "react";
 import { Button, Carousel } from 'antd';
 import { SearchOutlined, BellOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-
+import Image from 'next/image';
+ 
+import logo from '../Header/asset/logo.png'
 const Header = () => {
     return (
         <header className="bg-[#93A267] text-white py-2">
       <div className="container mx-auto flex justify-between items-center">
         {/* Left Section - Logo */}
         <div className="flex items-center space-x-4">
-          <img
-            src="/path-to-logo.png" // Replace with your logo path
-            alt="Việt Nông"
-            className="w-16 h-auto"
-          />
+        <Image
+                        src={logo} // Sử dụng component Image
+                        alt="Việt Nông"
+                        width={64} // Width tương đương với w-16
+                        height={64} // Chọn chiều cao phù hợp, ví dụ 64px
+                        className="h-auto"
+                    />
           <div className="text-sm">
             <a href="#" className="hover:underline">
               Trở thành người bán
