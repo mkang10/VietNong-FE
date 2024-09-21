@@ -31,9 +31,9 @@ const Navbar = () => {
         Cẩm nang
       </a>
       <a
-        href="/market"
+        href="/content/product"
         className={`text-lg font-semibold border-b-4 border-transparent pb-2 transition duration-300 ${
-          pathname === '/market' ? 'text-gray-700' : 'text-gray-500'
+          pathname === '/content/product' ? 'text-gray-700' : 'text-gray-500'
         } hover:text-[#93A267] hover:border-[#93A267]`}
       >
         Chợ
