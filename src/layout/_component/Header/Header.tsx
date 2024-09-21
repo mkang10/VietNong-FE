@@ -56,10 +56,10 @@ const Header = () => {
           <Button type="link" className="text-white">
             <QuestionCircleOutlined /> Hỗ trợ
           </Button>
-          <Button type="link" className="text-white">
+          <Button type="link" className="text-white" href="auth/register">
             Đăng ký
           </Button>
-          <Button type="link" className="text-white">
+          <Button type="link" className="text-white" href="auth/login">
             Đăng nhập
           </Button>
         </div>
