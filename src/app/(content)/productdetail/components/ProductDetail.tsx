@@ -3,7 +3,13 @@ import Image from 'next/image';
 import Header from "@/layout/_component/Header/Header";
 import Navbar from "@/layout/_component/Header/navbar/Navbar";
 import product from '../assets/product.jpeg';
-
+import avatar from '../assets/avatar.png';
+import shop from '../assets/shop.jpg'
+const products = new Array(30).fill({
+    name: 'Dưa Lưới Ruột Vàng',
+    price: '80,000 - 100,000 VND/kg',
+    imageUrl: '/path-to-image', // Thay đường dẫn hình ảnh của bạn
+  });
 const ProductDetail = () => {
     return (
         <div className="bg-gray-50 min-h-screen">
@@ -19,11 +25,11 @@ const ProductDetail = () => {
                     <ul className="flex space-x-2">
                         <li>Chợ</li>
                         <li>{'>'}</li>
-                        <li></li>
+                        <li>Sản phẩm</li>
                         <li>{'>'}</li>
-                        <li></li>
+                        <li>Hạt giống</li>
                         <li>{'>'}</li>
-                        <li className="font-bold"></li>
+                        <li className="font-bold">Tổng Hợp Các Loại Hạt giống Dây Leo</li>
                     </ul>
                 </nav>
 
@@ -84,11 +90,12 @@ const ProductDetail = () => {
                         </div>
                     </div>
                 </div>
-                 {/* Seller Info Section */}
-                 <div className="bg-white shadow-md rounded mt-8 p-6 border border-blue-200">
+
+                {/* Seller Info Section */}
+                <div className="bg-white shadow-md rounded mt-8 p-6 border border-blue-200">
                     <div className="flex items-center">
                         <Image
-                            src="/path/to/logo.jpg"
+                            src={shop}
                             alt="Seller Logo"
                             width={60}
                             height={60}
@@ -100,46 +107,79 @@ const ProductDetail = () => {
                         </div>
                     </div>
                     <div className="flex justify-between mt-4 text-sm text-gray-600">
-                        <div>Đánh giá: </div>
-                        <div>Sản phẩm: </div>
-                        <div>Tham gia: </div>
-                        <div>Người theo dõi: </div>
+                        <div>Đánh giá: 4.8</div>
+                        <div>Sản phẩm: 100+</div>
+                        <div>Tham gia: 1 năm trước</div>
+                        <div>Người theo dõi: 10K</div>
                     </div>
                 </div>
-                 {/* Additional Product Information */}
-                 <div className="bg-white shadow-md rounded mt-8 p-6">
+
+                {/* Additional Product Information */}
+                <div className="bg-white shadow-md rounded mt-8 p-6">
                     <h3 className="text-xl font-bold mb-4 text-gray-600">Chi tiết sản phẩm</h3>
                     <ul className="text-gray-700 space-y-2 mb-6">
-                        <li></li>
-                        <li>{'>'}</li>
-                        <li></li>
-                        <li>{'>'}</li>
-                        <li></li>
-                        <li>{'>'}</li>
-                        <li className="font-bold"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>Loại hạt giống: Dây leo</li>
+                        <li>Xuất xứ: Việt Nam</li>
+                        <li>Số lượng hạt giống: 10g</li>
                     </ul>
 
                     <h3 className="text-xl font-bold mb-4 text-gray-600">Mô tả sản phẩm</h3>
-                    <p className="text-gray-700">
-                        
+                    <div className="text-gray-700">
                         <ul className="list-disc pl-5">
-                            <li></li>
-                            <li></li>
-                            <li></li>
+                            <li>Hạt giống chất lượng cao, dễ trồng.</li>
+                            <li>Phù hợp với khí hậu Việt Nam.</li>
+                            <li>Đóng gói cẩn thận, bảo quản tốt.</li>
                         </ul>
-                        
-                    </p>
+                    </div>
                 </div>
-                {/* Feed back */}
+
+                {/* Feedback Section */}
                 <div className="bg-white shadow-md rounded mt-8 p-6">
-                <h3 className="text-xl font-bold mb-4 text-gray-600"> ĐÁNH GIÁ SẢN PHẨM </h3>
+                    <h3 className="text-xl font-bold mb-4 text-gray-600">ĐÁNH GIÁ SẢN PHẨM</h3>
+                    <div className="flex items-center mb-6">
+                        <span className="text-3xl font-bold">4.9</span>
+                        <span className="ml-2 text-yellow-500 text-2xl">⭐⭐⭐⭐⭐</span>
+                        <span className="ml-2 text-gray-600">(120 đánh giá)</span>
+                    </div>
+                    {/* Feedback List */}
+                    <div className="space-y-4">
+                        {/* Single Feedback */}
+                        <div className="p-4 bg-gray-100 rounded">
+                            <div className="flex items-center mb-2">
+                                <Image
+                                    src={avatar}
+                                    alt="User Avatar"
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full"
+                                />
+                                <div className="ml-3">
+                                    <h4 className="font-bold">Diệu Lâm</h4>
+                                    <span className="text-sm text-gray-500">Đã mua hàng</span>
+                                </div>
+                            </div>
+                            <div className="text-gray-700 mb-2">
+                                Sản phẩm tốt, đóng gói chắc chắn, giao hàng nhanh chóng. Sẽ ủng hộ shop lần sau.
+                            </div>
+                            <div className="text-xs text-gray-500">2 ngày trước</div>
+                        </div>
+
+                        {/* Repeat this block for additional feedback */}
+                    </div>
+
+                    {/* Pagination */}
+                    <div className="flex justify-center mt-6">
+                        <button className="mx-1 px-2 py-1 border rounded text-sm">1</button>
+                        <button className="mx-1 px-2 py-1 border rounded text-sm">2</button>
+                        <button className="mx-1 px-2 py-1 border rounded text-sm">3</button>
+                    </div>    
                 </div>
+                {/*More Product In Shop*/}
+                <div className="bg-white shadow-md rounded mt-8 p-6">
+                        
+                        </div>
             </div>
-            </div>
-        
+        </div>
     );
 };
 
