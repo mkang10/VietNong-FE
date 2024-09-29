@@ -2,7 +2,7 @@ import React from 'react';
 import Cart from '../cart/components/Cart'
 
 
-const ProductPage: React.FC = () => {
+const CartPage: React.FC = () => {
   return (
     <div className='Container-01'>
         
@@ -16,4 +16,4 @@ const ProductPage: React.FC = () => {
   );
 };
 
-export default ProductPage;
+export default CartPage;
