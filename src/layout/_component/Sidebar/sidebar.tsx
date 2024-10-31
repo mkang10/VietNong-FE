@@ -21,10 +21,10 @@ const Sidebar = () => {
                     <a href="/productmanagement/all" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Tất cả sản phẩm
                     </a>
-                    <a href="/add-product" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    <a href="/productmanagement/add" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Thêm sản phẩm
                     </a>
-                    <a href="/out-of-stock" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    <a href="/productmanagement/out-of-stock" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Sản phẩm hết hàng
                     </a>
                 </div>

@@ -1,3 +1,5 @@
+import './/navbarseller.css';
+
 const Navbarseller = () => {
     return (
         <div className="breadcrumb">
