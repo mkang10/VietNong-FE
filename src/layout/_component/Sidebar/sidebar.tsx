@@ -32,7 +32,7 @@ const Sidebar = () => {
                 {/* Quản lý vận chuyển */}
                 <div className="text-xl font-bold">Quản lý vận chuyển</div>
                 <div className="space-y-2">
-                    <a href="/shipping-settings" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    <a href="/shipmanagement" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Cài đặt vận chuyển
                     </a>
                 </div>
@@ -40,7 +40,7 @@ const Sidebar = () => {
                 {/* Tài Chính */}
                 <div className="text-xl font-bold">Tài Chính</div>
                 <div className="space-y-2">
-                    <a href="/bank-account" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    <a href="/bankmanagement/bankaccount" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Tài khoản ngân hàng
                     </a>
                 </div>
@@ -48,10 +48,10 @@ const Sidebar = () => {
                 {/* Quản lý shop */}
                 <div className="text-xl font-bold">Quản lý shop</div>
                 <div className="space-y-2">
-                    <a href="/shop-categories" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    <a href="/shopmanagement/list" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Danh mục shop
                     </a>
-                    <a href="/shop-reviews" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    <a href="/shopmanagement/feedback" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Đánh giá shop
                     </a>
                 </div>
