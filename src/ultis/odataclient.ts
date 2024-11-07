@@ -12,15 +12,4 @@ const odataClient: AxiosInstance = axios.create({
   },
 });
 
-// Hàm tương tự cho các endpoint khác
-export const getProducts = async (): Promise<any[]> => {
-  try {
-    const response = await odataClient.get('/product');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
-  }
-};
-
 export default odataClient;
