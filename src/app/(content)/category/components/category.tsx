@@ -1,7 +1,7 @@
 // components/CategoryComponent.tsx
 "use client";
 import { useEffect, useState } from 'react';
-import { getCategories } from '@/ultis/CategoryAPI';
+import { getCategories } from '@/ultis/CategoryOdata';
 
 interface Category {
   categoryId: number;
