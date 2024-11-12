@@ -17,3 +17,12 @@ export const getCategories = async (): Promise<Category[]> => {
     throw new Error('Error fetching categories');
   }
 };
+
+//getbyid
+//https://localhost:7050/odata/category/1
+
+//update
+//https://localhost:7050/odata/category/1
+
+//delete
+//https://localhost:7050/odata/category/2
