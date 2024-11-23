@@ -35,13 +35,12 @@ interface Product {
   
 
 
-export const getProducts = async (): Promise<Product[]> => {
+export const getProducts = async (page: number, pageSize: number): Promise<{ data: Product[]; totalCount: number }> => {
   try {
-    const response = await odataClient.get<{ data: Product[] }>('/product');
-    return response.data.data; // Lấy mảng sản phẩm từ thuộc tính `data`
+    const response = await odataClient.get(`/product?page=${page}&pageSize=${pageSize}`);
+    return response.data;
   } catch (error) {
     console.error('Error fetching products:', error);
     throw new Error('Error fetching products');
   }
 };
-
