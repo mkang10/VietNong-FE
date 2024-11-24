@@ -1,117 +1,129 @@
-// Thêm "use client"; ở đầu file
 "use client";
-import './add.css';
 
+import './add.css';
 import { useState } from 'react';
+import { postProduct } from '@/ultis/ProductOdata'; // Sử dụng hàm postProduct
 
 export default function Add() {
-    const [productName, setProductName] = useState('');
-    const [productImage, setProductImage] = useState(null);
-    const [categories, setCategories] = useState([{ name: '', price: '', quantity: '' }]);
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [price, setPrice] = useState('');
+  const [weight, setWeight] = useState('');
+  const [description, setDescription] = useState('');
+  const [stockQuantity, setStockQuantity] = useState('');
+  const [productImage, setProductImage] = useState<File | null>(null);
 
-    const handleAddCategory = () => {
-        setCategories([...categories, { name: '', price: '', quantity: '' }]);
-    };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const handleCategoryChange = (index, field, value) => {
-        const newCategories = [...categories];
-        newCategories[index][field] = value;
-        setCategories(newCategories);
-    };
+    // Chuẩn bị FormData để gửi qua API
+    const formData = new FormData();
+    formData.append('Name', name);
+    formData.append('CategoryId', categoryId);
+    formData.append('Price', price);
+    formData.append('Weight', weight || '0'); // Trọng lượng có thể không bắt buộc
+    formData.append('Description', description || '');
+    formData.append('StockQuantity', stockQuantity);
+    if (productImage) {
+      formData.append('ProductImage', productImage); // Hình ảnh
+    }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission
-        console.log({
-            productName,
-            productImage,
-            categories,
-            selectedCategory,
-            description,
-        });
-    };
+    try {
+      const response = await postProduct(formData); // Gửi dữ liệu qua API
+      alert('Sản phẩm đã được thêm thành công!');
+      console.log('Thêm sản phẩm:', response);
+    } catch (error) {
+      console.error('Lỗi khi thêm sản phẩm:', error);
+      alert('Đã xảy ra lỗi khi thêm sản phẩm.');
+    }
+  };
 
-    return (
-             <div className="add-product">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Tên sản phẩm</label>
-                    <input
-                        type="text"
-                        placeholder="Tên sản phẩm"
-                        value={productName}
-                        onChange={(e) => setProductName(e.target.value)}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Hình ảnh</label>
-                    <input
-                        type="file"
-                        onChange={(e) => setProductImage(e.target.files[0])}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Phân loại</label>
-                    {categories.map((category, index) => (
-                        <div key={index} className="category-row">
-                            <input
-                                type="text"
-                                placeholder="Tên"
-                                value={category.name}
-                                onChange={(e) => handleCategoryChange(index, 'name', e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="Giá"
-                                value={category.price}
-                                onChange={(e) => handleCategoryChange(index, 'price', e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="Số lượng"
-                                value={category.quantity}
-                                onChange={(e) => handleCategoryChange(index, 'quantity', e.target.value)}
-                            />
-                        </div>
-                    ))}
-                    <button type="button" onClick={handleAddCategory} className="add-category">
-                        + Thêm phân loại
-                    </button>
-                </div>
-
-                <div className="form-group">
-                    <label>Phân loại</label>
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                    >
-                        <option value="">Chọn phân loại</option>
-                        {categories.map((category, index) => (
-                            <option key={index} value={category.name}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="form-group">
-                    <label>Mô tả</label>
-                    <textarea
-                        placeholder="Mô tả sản phẩm"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
-
-                <button type="submit" className="submit-button">
-                    Thêm sản phẩm
-                </button>
-            </form>
+  return (
+    <div className="add-product">
+      <form onSubmit={handleSubmit}>
+        {/* Tên sản phẩm */}
+        <div className="form-group">
+          <label>Tên sản phẩm</label>
+          <input
+            type="text"
+            placeholder="Tên sản phẩm"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
-       
-    );
+
+        {/* Danh mục (CategoryId) */}
+        <div className="form-group">
+          <label>Danh mục (CategoryId)</label>
+          <input
+            type="number"
+            placeholder="Danh mục"
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Giá sản phẩm */}
+        <div className="form-group">
+          <label>Giá</label>
+          <input
+            type="number"
+            placeholder="Giá sản phẩm"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Trọng lượng */}
+        <div className="form-group">
+          <label>Trọng lượng (kg)</label>
+          <input
+            type="number"
+            placeholder="Trọng lượng sản phẩm"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+          />
+        </div>
+
+        {/* Số lượng */}
+        <div className="form-group">
+          <label>Số lượng</label>
+          <input
+            type="number"
+            placeholder="Số lượng"
+            value={stockQuantity}
+            onChange={(e) => setStockQuantity(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Mô tả sản phẩm */}
+        <div className="form-group">
+          <label>Mô tả sản phẩm</label>
+          <textarea
+            placeholder="Mô tả sản phẩm"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        {/* Hình ảnh sản phẩm */}
+        <div className="form-group">
+          <label>Hình ảnh sản phẩm</label>
+          <input
+            type="file"
+            onChange={(e) => setProductImage(e.target.files?.[0] || null)}
+          />
+        </div>
+
+        {/* Nút submit */}
+        <button type="submit" className="submit-button">
+          Thêm sản phẩm
+        </button>
+      </form>
+    </div>
+  );
 }

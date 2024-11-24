@@ -44,3 +44,16 @@ export const getProducts = async (page: number, pageSize: number): Promise<{ dat
     throw new Error('Error fetching products');
   }
 };
+export const postProduct = async (productData: FormData): Promise<any> => {
+  try {
+    const response = await odataClient.post('/product', productData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Hỗ trợ gửi dữ liệu file
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error posting product:', error);
+    throw new Error('Error posting product');
+  }
+};
