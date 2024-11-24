@@ -1,48 +1,112 @@
-import React from "react";
-import './LoginForm.css';
-import {FaUser   } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import { IoIosArrowRoundBack } from "react-icons/io";
+"use client"; // Đánh dấu component này là Client Component
 
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { FaUser, FaLock } from 'react-icons/fa';
+import { IoIosArrowRoundBack } from 'react-icons/io';
+import { loginUser } from '@/ultis/AuthAPI'; // Đảm bảo đường dẫn đúng
+import "./LoginForm.css";
 
 const LoginForm = () => {
-    return (
-    
-     <div className="wrapper">
-            <form action="">
-                <div>
-                <a href="/">
-                <IoIosArrowRoundBack className="back-icon"></IoIosArrowRoundBack>
-                </a>
-                </div>
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const router = useRouter();
+
+    // Khi component mount, kiểm tra localStorage
+    useEffect(() => {
+        const storedUsername = localStorage.getItem('username');
+        const storedRememberMe = localStorage.getItem('rememberMe') === 'true'; // Lấy trạng thái rememberMe
+
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+        setRememberMe(storedRememberMe); // Cập nhật trạng thái rememberMe
+    }, []);
+
+    const handleLogin = async (event: React.FormEvent) => {
+        event.preventDefault();
+        const credentials = { username, password };
+
+        try {
+            const data = await loginUser(credentials);
+            if (data.code === 200 && data.data.token) {
+                localStorage.setItem('token', data.data.token);
+                localStorage.setItem('roleId', data.data.account.roleId.toString());
                 
-                <h1>Login</h1>
-                <div className="input-box">
-                    <input type="text" placeholder="Username" required/>
-                    <FaUser className="icon"/>
-                </div>
-                <div className="input-box">
-                    <input type="password" placeholder="Password" required/>
-                    <FaLock className="icon"/>
-                </div>
-                <div className="remember-forgot">
-                    <label><input type="checkbox" />Remember me</label>
-                    <a href="forgotpassword">Forgot Password</a>
-                </div>
+                // Lưu tên người dùng và trạng thái "Remember Me"
+                if (rememberMe) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('rememberMe', 'true'); // Lưu trạng thái rememberMe
+                } else {
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('rememberMe'); // Xóa trạng thái rememberMe
+                }
 
-                <button type="submit">Login</button>
+                setError(''); // Reset state lỗi
+                router.push('/'); // Chuyển hướng về trang chủ
+            } else {
+                setError(data.message || 'Đăng nhập thất bại');
+            }
+        } catch (err) {
+            setError('Đăng nhập thất bại');
+        }
+    };
 
-                <div className="register-link"> 
-                    <p>Do not have an account? <a href="register">Register</a></p>
-                     
-                </div>
-            </form>
-           
-            
+    return (
+        <div className='login-container'>
+            <div className="wrapper">
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <a href="/">
+                            <IoIosArrowRoundBack className="back-icon" />
+                        </a>
+                    </div>
+                    
+                    <h1>Login</h1>
+                    {error && <p className="error-message">{error}</p>}
+                    <div className="input-box">
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <FaUser className="icon" />
+                    </div>
+                    <div className="input-box">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <FaLock className="icon" />
+                    </div>
+                    <div className="remember-forgot">
+                        <label>
+                            <input 
+                                type="checkbox" 
+                                checked={rememberMe} 
+                                onChange={(e) => setRememberMe(e.target.checked)} 
+                            /> 
+                            Remember me
+                        </label>
+                        <a href="forgotpassword">Forgot Password</a>
+                    </div>
+
+                    <button type="submit">Login</button>
+
+                    <div className="register-link">
+                        <p>Do not have an account? <a href="register">Register</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
-   
-       
-    )
-}
+    );
+};
 
 export default LoginForm;
