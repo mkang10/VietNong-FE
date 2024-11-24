@@ -1,9 +1,7 @@
 import apiclient from "./apiclient";
+import { LoginRequest, LoginResponse } from "@/type/auth"; // Cập nhật đường dẫn nếu cần
+import axios from 'axios';
 
-interface LoginRequest {
-  username: string;
-  password: string;
-}
 
 
 interface RegisterRequest {
@@ -22,22 +20,31 @@ interface RegisterResponse {
   // Thêm các trường khác nếu có
 }
 
-interface LoginResponse {
-  // Xác định kiểu dữ liệu phản hồi từ API, ví dụ như token nếu có
-  token: string;
-  // Thêm các trường khác nếu có
-}
 
 // POST: Đăng nhập người dùng
+
+
 export const loginUser = async (credentials: LoginRequest): Promise<LoginResponse> => {
-  try {
-    const response = await apiclient.post<LoginResponse>('/auth/login', credentials);
-    return response.data;
-  } catch (error) {
-    console.error('Error logging in:', error);
-    throw error;
-  }
+    try {
+        const response = await axios.post<LoginResponse>(
+            'https://apivietnong-f9a8ecdydsdmebb3.canadacentral-01.azurewebsites.net/api/auth/login',
+            credentials
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error logging in:', error);
+        throw error;
+    }
 };
+// export const loginUser = async (credentials: LoginRequest): Promise<LoginResponse> => {
+//   try {
+//       const response = await axios.post<LoginResponse>('/auth/login', credentials);
+//       return response.data; // Đây phải là LoginResponse
+//   } catch (error) {
+//       console.error('Error logging in:', error);
+//       throw error;
+//   }
+// };
 
 // POST: Đăng ký người dùng mới
 export const registerUser = async (registrationData: RegisterRequest): Promise<RegisterResponse> => {

@@ -7,7 +7,7 @@
  
 }
 
-body{
+.login-container{
     font-family: 'poppins',sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -99,7 +99,7 @@ body{
     text-decoration: underline;
 }
 
-.wrapper button{
+.wrapper button {
     width: 100%;
     height: 45px;
     background: #fff;
@@ -111,6 +111,11 @@ body{
     font-size: 16px;
     color: #333;
     font-weight: 700;
+}
+
+.wrapper button:hover {
+    background: #5e790d !important; /* Màu nền mới khi hover */
+    color: #fff !important; /* Màu chữ mới khi hover */
 }
 
 .wrapper .register-link {
