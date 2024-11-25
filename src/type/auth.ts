@@ -21,3 +21,21 @@ export interface LoginResponse {
         account: Account;
     };
 }
+
+// Định nghĩa interface cho dữ liệu đăng ký
+export interface RegisterRequest {
+    username: string;  // Tên người dùng
+    password: string;  // Mật khẩu
+    email: string;     // Địa chỉ email
+    roleId: number;    // ID vai trò (ví dụ: 2 cho người dùng)
+    status: boolean;    // Trạng thái người dùng (đang hoạt động hay không)
+}
+
+// Định nghĩa interface cho phản hồi từ API
+export interface RegisterResponse {
+    code: number;         // Mã trạng thái (ví dụ: 201 cho thành công)
+    message: string;      // Thông điệp phản hồi
+    data: {
+        token: string;    // Token JWT hoặc thông tin xác thực khác
+    };
+}
