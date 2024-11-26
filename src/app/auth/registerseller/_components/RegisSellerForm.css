@@ -7,7 +7,7 @@
  
 }
 
-.register-container{
+.register-seller-container{
     font-family: 'poppins',sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -116,7 +116,6 @@
     background: #5e790d !important; /* Màu nền mới khi hover */
     color: #fff !important; /* Màu chữ mới khi hover */
 }
-
 .wrapper .register-link {
     font-size: 14.5px;
     text-align: center;
@@ -132,5 +131,31 @@
 .register-link p a:hover{
     text-decoration: underline;
 }
+.input-box {
+    position: relative;
+    margin: 15px 0;
+}
 
+.input-box input[type="file"] {
+    display: none; /* Ẩn input file mặc định */
+}
 
+.input-box label {
+    display: block;
+    padding: 15px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    text-align: center;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.input-box label:hover {
+    background-color: #f9f9f9;
+    border-color: #888;
+}
+
+.input-box label:active {
+    background-color: #e9e9e9;
+}

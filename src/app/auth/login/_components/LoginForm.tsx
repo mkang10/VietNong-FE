@@ -34,6 +34,8 @@ const LoginForm = () => {
             if (data.code === 200 && data.data.token) {
                 localStorage.setItem('token', data.data.token);
                 localStorage.setItem('roleId', data.data.account.roleId.toString());
+                localStorage.setItem('userId', data.data.account.userId.toString());
+
                 
                 // Lưu tên người dùng và trạng thái "Remember Me"
                 if (rememberMe) {
