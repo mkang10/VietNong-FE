@@ -36,7 +36,7 @@ const LoginForm = () => {
                 localStorage.setItem('roleId', data.data.account.roleId.toString());
                 localStorage.setItem('userId', data.data.account.userId.toString());
 
-                
+
                 // Lưu tên người dùng và trạng thái "Remember Me"
                 if (rememberMe) {
                     localStorage.setItem('username', username);
@@ -47,7 +47,15 @@ const LoginForm = () => {
                 }
 
                 setError(''); // Reset state lỗi
-                router.push('/'); // Chuyển hướng về trang chủ
+                // Kiểm tra roleId và điều hướng
+                const roleId = data.data.account.roleId;
+                if (roleId === 4) {
+                    router.push('/'); // Chuyển hướng về trang chủ
+                } else if (roleId === 3) {
+                    router.push('/Welcome'); // Chuyển hướng về trang welcome
+                } else {
+                    setError('Quyền truy cập không hợp lệ'); // Xử lý trường hợp không hợp lệ
+                }
             } else {
                 setError(data.message || 'Đăng nhập thất bại');
             }
@@ -65,7 +73,7 @@ const LoginForm = () => {
                             <IoIosArrowRoundBack className="back-icon" />
                         </a>
                     </div>
-                    
+
                     <h1>Login</h1>
                     {error && <p className="error-message">{error}</p>}
                     <div className="input-box">
@@ -90,11 +98,11 @@ const LoginForm = () => {
                     </div>
                     <div className="remember-forgot">
                         <label>
-                            <input 
-                                type="checkbox" 
-                                checked={rememberMe} 
-                                onChange={(e) => setRememberMe(e.target.checked)} 
-                            /> 
+                            <input
+                                type="checkbox"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                            />
                             Remember me
                         </label>
                         <a href="forgotpassword">Forgot Password</a>
