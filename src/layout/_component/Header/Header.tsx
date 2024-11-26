@@ -41,7 +41,7 @@ const Header = () => {
                         className="h-auto"
                     />
                     <div className="text-sm">
-                        <a href="#" className="hover:underline">
+                        <a href="/auth/registerseller" className="hover:underline">
                             Trở thành người bán
                         </a>{' '}
                         |{' '}

@@ -39,3 +39,18 @@ export interface RegisterResponse {
         token: string;    // Token JWT hoặc thông tin xác thực khác
     };
 }
+
+export interface RegisterSellerRequest {
+    shopName: string;
+    shopAddress: string;
+    phoneNumber: string;
+    email: string;
+    rating: number;
+    shopImage: File;
+}
+
+export interface RegisterSellerResponse {
+    code: number;
+    message: string;
+    sellerId: number;
+}
