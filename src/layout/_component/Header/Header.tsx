@@ -10,21 +10,30 @@ import logo from '../Header/asset/logo.png';
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
+    const [roleId, setRoleId] = useState<number | null>(null); // Khởi tạo state cho roleId
     const router = useRouter(); // Khởi tạo useRouter
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
+        const storedRoleId = localStorage.getItem('roleId');
+
         if (storedUsername) {
             setIsLoggedIn(true);
             setUsername(storedUsername);
+        }
+
+        if (storedRoleId) {
+            setRoleId(parseInt(storedRoleId, 10)); // Chuyển đổi roleId thành số
         }
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('username');
         localStorage.removeItem('token'); // Xóa token khi đăng xuất
+        localStorage.removeItem('roleId'); // Xóa roleId khi đăng xuất
         setIsLoggedIn(false);
         setUsername('');
+        setRoleId(null); // Reset roleId
         router.push('/auth/login'); // Chuyển hướng về trang đăng nhập
     };
 
@@ -41,13 +50,33 @@ const Header = () => {
                         className="h-auto"
                     />
                     <div className="text-sm">
-                        <a href="/auth/registerseller" className="hover:underline">
-                            Trở thành người bán
-                        </a>{' '}
+                        {roleId === 4 ? (
+                            <a href="/auth/registerseller" className="hover:underline">
+                                Trở thành người bán
+                            </a>
+                        ) : roleId === 3 ? (
+                            <a href="/" className="hover:underline">
+                                Quay về trang mua hàng
+                            </a>
+                        ) : (
+                            <a href="/" className="hover:underline">
+                                Quay về trang mua hàng
+                            </a>
+                        )}{' '}
                         |{' '}
-                        <a href="#" className="hover:underline">
-                            Tải ứng dụng
-                        </a>
+                        {roleId === 4 ? (
+                            <a href="#" className="hover:underline">
+                                Tải Ứng Dụng
+                            </a>
+                        ) : roleId === 3 ? (
+                            <a href="/Welcome" className="hover:underline">
+                                Quay Về Trang Người Bán
+                            </a>
+                        ) : (
+                            <a href="/" className="hover:underline">
+                                Quay về trang mua hàng
+                            </a>
+                        )}{' '}
                     </div>
                 </div>
 
