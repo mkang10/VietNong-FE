@@ -27,7 +27,7 @@ const RegisterForm = () => {
             username,
             password,
             email,
-            roleId: 3,
+            roleId: 4,
             status: true
         };
 
