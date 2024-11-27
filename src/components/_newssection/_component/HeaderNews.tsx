@@ -11,11 +11,11 @@ const HeaderNews = () => {
         </p>
         {/* Filter Buttons */}
     <div className="flex justify-start space-x-4 mb-8">
-      <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Mới nhất</Button>
+      {/* <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Mới nhất</Button>
       <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Nông sản</Button>
       <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Công nghệ</Button>
       <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Thời tiết</Button>
-      <Button type="link" className="px-4 py-2">Xem tất cả</Button>
+      <Button type="link" className="px-4 py-2">Xem tất cả</Button> */}
     </div>
     </>
     
