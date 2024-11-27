@@ -1,6 +1,6 @@
 import { Article } from "@/type/news";
 
-const apiKey = '37fa5628eb0000a9118b503e87f0d35f'; // Thay bằng API Key của bạn
+const apiKey = '37fa5628eb0000a9118b503e87f0d35f';
 const baseUrl = 'https://gnews.io/api/v4/search';
 const query = 'nông nghiệp'; // Từ khóa tìm kiếm
 
