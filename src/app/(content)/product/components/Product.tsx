@@ -6,6 +6,7 @@ import Header from "@/layout/_component/Header/Header";
 import Navbar from "@/layout/_component/Header/navbar/Navbar";
 import { getProducts } from '@/ultis/ProductOdata';
 import { getCategories } from '@/ultis/CategoryOdata';
+import { useRouter } from 'next/navigation'; // Import useRouter để chuyển hướng
 import mainbanner from '../assets/mainbanner.jpg';
 import side1 from '../assets/side1.jpg';
 import side2 from '../assets/side2.jpg';
@@ -38,6 +39,7 @@ const Product = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize] = useState<number>(50);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const router = useRouter(); // Hook router để chuyển hướng
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -83,6 +85,10 @@ const Product = () => {
     setCurrentPage(page);
   };
 
+  const handleViewDetails = (productId: number) => {
+    router.push(`/productdetail?id=${productId}`); // Truyền productId vào URL
+  };
+  
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const maxPagesToShow = 5;
@@ -94,11 +100,7 @@ const Product = () => {
         <button
           key={i}
           onClick={() => handlePageClick(i)}
-          className={`px-3 py-2 rounded-lg ${
-            i === currentPage
-              ? 'bg-green-600 text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
+          className={`px-3 py-2 rounded-lg ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
           {i}
         </button>
@@ -193,7 +195,10 @@ const Product = () => {
                 <p className="text-sm text-gray-400">
                   Rating: {product.averageRating} ({product.reviewCount} reviews)
                 </p>
-                <button className="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg">
+                <button
+                  className="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg"
+                  onClick={() => handleViewDetails(product.productId)} // Gọi hàm handleViewDetails
+                >
                   Xem chi tiết
                 </button>
               </div>
