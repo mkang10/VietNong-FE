@@ -59,8 +59,8 @@ const Header = () => {
                                 Quay về trang mua hàng
                             </a>
                         ) : (
-                            <a href="/" className="hover:underline">
-                                Quay về trang mua hàng
+                            <a href="/auth/registerseller" className="hover:underline">
+                                 Trở thành người bán
                             </a>
                         )}{' '}
                         |{' '}
@@ -74,7 +74,8 @@ const Header = () => {
                             </a>
                         ) : (
                             <a href="/" className="hover:underline">
-                                Quay về trang mua hàng
+                                                                Tải Ứng Dụng
+
                             </a>
                         )}{' '}
                     </div>
