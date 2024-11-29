@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,7 +9,7 @@ interface Article {
   publishedAt: string;
   description: string;
   urlToImage: string;
-  url: string; // Thêm thuộc tính url
+  url: string;
 }
 
 const NewsListhomepage: React.FC = () => {
@@ -39,36 +38,37 @@ const NewsListhomepage: React.FC = () => {
       {/* Swiper for news articles */}
       <Swiper
         spaceBetween={20}
-        slidesPerView={2} // Hiển thị 2 item mỗi slide
+        slidesPerView={2}
         breakpoints={{
           640: {
             slidesPerView: 2,
           },
           1024: {
-            slidesPerView: 3, // Có thể thay đổi số lượng item trên các màn hình lớn hơn
+            slidesPerView: 3,
           },
         }}
       >
         {newsData.length > 0 ? (
           newsData.map((news) => (
             <SwiperSlide key={news.title}>
-              <a href={news.url} target="_blank" rel="noopener noreferrer" className="block relative bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-[400px]">
+              <a
+                href={news.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+              >
                 <img
                   src={news.urlToImage || "https://via.placeholder.com/600x400"}
                   alt={news.title}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64 object-cover rounded-t-xl"
                 />
-                <div className="absolute top-4 left-4 bg-[#93A267] text-white px-3 py-1 rounded-lg">
+                <div className="absolute top-4 left-4 bg-[#93A267] text-white px-3 py-1 rounded-full shadow-md">
                   Top 10 tháng
                 </div>
-                <div className="p-6 flex flex-col justify-between h-full">
-                  <h3 className="text-2xl font-bold text-[#93A267] mb-2">
-                    {news.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 truncate">
-                    {news.description}
-                  </p>
-                  <span className="text-[#93A267]">Đọc tiếp</span>
+                <div className="p-6 flex flex-col justify-between h-full bg-white rounded-b-xl hover:bg-gray-50 transition-all duration-200">
+                  <h3 className="text-xl font-semibold text-[#93A267] mb-2 line-clamp-2">{news.title}</h3>
+                  <p className="text-gray-700 mb-4 line-clamp-3">{news.description}</p>
+                  <span className="text-[#93A267] font-semibold">Đọc tiếp</span>
                 </div>
               </a>
             </SwiperSlide>
