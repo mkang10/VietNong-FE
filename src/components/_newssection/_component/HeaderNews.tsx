@@ -5,22 +5,23 @@ import { SearchOutlined, BellOutlined, QuestionCircleOutlined } from '@ant-desig
 const HeaderNews = () => {
     return (
     <>
-        <h2 className="text-4xl font-bold text-[#93A267] mb-6">TIN TỨC NÔNG NGHIỆP</h2>
-        <p className="text-lg text-gray-700 mb-8">
-      Tin tức nông nghiệp bao gồm các thông tin liên quan đến sản xuất, chăn nuôi, trồng trọt, và các hoạt động kinh doanh trong lĩnh vực nông nghiệp.
-        </p>
+        <h2 
+          className="text-4xl font-bold mb-6" 
+          style={{
+            color: '#93A267', // Màu xanh lá như trong hình
+            textShadow: '2px 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(0, 0, 0, 0.3)', // Bóng mờ tạo hiệu ứng 3D
+            letterSpacing: '1px', // Khoảng cách giữa các chữ
+          }}
+        >
+          TIN TỨC NÔNG NGHIỆP
+        </h2>
+        
         {/* Filter Buttons */}
-    <div className="flex justify-start space-x-4 mb-8">
-      {/* <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Mới nhất</Button>
-      <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Nông sản</Button>
-      <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Công nghệ</Button>
-      <Button className="bg-[#93A267] text-white rounded-full px-4 py-2">Thời tiết</Button>
-      <Button type="link" className="px-4 py-2">Xem tất cả</Button> */}
-    </div>
+        <div className="flex justify-start space-x-4 mb-8">
+          {/* Các button filter (có thể kích hoạt nếu cần) */}
+        </div>
     </>
-    
-    )
-}
+    );
+};
 
 export default HeaderNews;
-
