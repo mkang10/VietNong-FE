@@ -1,34 +1,36 @@
 
 import odataClient from "./odataclient"; 
+import { AxiosResponse } from 'axios';
 
-interface Product {
-  productId: number;
-  name: string;
-  categoryId: number;
-  price: number;
-  weight: number;
-  description: string;
-  stockQuantity: number;
-  averageRating: number;
-  reviewCount: number;
-  productImage: string; 
-  createdAt: string; // Ngày tạo
-}
+import { Product, SellerProduct, ProductsResponse } from "@/type/Product";
 
-interface SellerProduct {
-  productId: number;
-  name: string;
-  categoryId: number;
-  price: number;
-  stockQuantity: number;
-  productImage: string;
-}
-
-
-export const getProducts = async (page: number, pageSize: number): Promise<{ data: Product[]; totalCount: number }> => {
+export const getProducts = async (
+  page: number,
+  pageSize: number,
+  categoryId?: number
+): Promise<{ data: Product[]; totalCount: number }> => {
   try {
-    const response = await odataClient.get(`/product?page=${page}&pageSize=${pageSize}`);
-    return response.data;
+    const response: AxiosResponse<ProductsResponse> = await odataClient.get(`/product?page=${page}&pageSize=${pageSize}`);
+    console.log('API Response:', response.data);
+
+    const productsData = response.data.data || []; // Truy cập vào thuộc tính data
+    const totalCount = response.data.totalCount || 0; // Truy cập vào thuộc tính totalCount
+
+    if (!Array.isArray(productsData)) {
+      throw new Error('Invalid response format: Expected an array of products');
+    }
+
+    // Lọc sản phẩm nếu categoryId được cung cấp
+    const products = categoryId
+      ? productsData.filter((product: Product) => product.categoryId === categoryId)
+      : productsData;
+
+    console.log('Total Products Returned:', products.length);
+    
+    return {
+      data: products,
+      totalCount: totalCount,
+    };
   } catch (error) {
     console.error('Error fetching products:', error);
     throw new Error('Error fetching products');

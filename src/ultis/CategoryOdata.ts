@@ -1,12 +1,6 @@
 import odataClient from "./odataclient"; 
 
-interface Category {
-  categoryId: number;
-  categoryName: string;
-  description: string;
-  image: string;
-}
-
+import { Category } from "@/type/Category";
 // Đảm bảo axios trả về một mảng các đối tượng Category
 export const getCategories = async (): Promise<Category[]> => {
   try {

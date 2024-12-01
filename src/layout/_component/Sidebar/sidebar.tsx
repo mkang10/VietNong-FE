@@ -4,7 +4,7 @@ const Sidebar = () => {
     return (
         <div className="flex h-screen">
             <div className="background text-white w-64 p-6 space-y-6">
-                {/* Quản lý đơn hàng */}
+                {/* Quản lý đơn hàng
                 <div className="text-xl font-bold">Quản lý đơn hàng</div>
                 <div className="space-y-2">
                     <a href="/ordermanagement/all" className="item rounded-md px-3 py-2 cursor-pointer block">
@@ -13,7 +13,7 @@ const Sidebar = () => {
                     <a href="/ordermanagement/refund" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Trả hàng / hoàn tiền
                     </a>
-                </div>
+                </div> */}
 
                 {/* Quản lý sản phẩm */}
                 <div className="text-xl font-bold">Quản lý sản phẩm</div>
@@ -24,9 +24,9 @@ const Sidebar = () => {
                     <a href="/productmanagement/add" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Thêm sản phẩm
                     </a>
-                    <a href="/productmanagement/out-of-stock" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    {/* <a href="/productmanagement/out-of-stock" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Sản phẩm hết hàng
-                    </a>
+                    </a> */}
                 </div>
 
                 {/* Quản lý vận chuyển */}
@@ -51,9 +51,9 @@ const Sidebar = () => {
                     <a href="/shopmanagement/list" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Danh mục shop
                     </a>
-                    <a href="/shopmanagement/feedback" className="item rounded-md px-3 py-2 cursor-pointer block">
+                    {/* <a href="/shopmanagement/feedback" className="item rounded-md px-3 py-2 cursor-pointer block">
                         Đánh giá shop
-                    </a>
+                    </a> */}
                 </div>
             </div>
         </div>

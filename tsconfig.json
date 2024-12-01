@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "target": "es5", // hoặc version khác bạn đang sử dụng
+    "downlevelIteration": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

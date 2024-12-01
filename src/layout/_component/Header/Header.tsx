@@ -1,21 +1,23 @@
-"use client"; 
+"use client";
 
 import React, { useState, useEffect } from "react";
-import { Button } from 'antd';
-import { SearchOutlined, BellOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation'; 
-import logo from '../Header/asset/logo.png';
+import { Button } from "antd";
+import { SearchOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import logo from "../Header/asset/logo.png";
+import Link from "next/link";
+import '../Sidebar/sidebar.css'
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
-    const [roleId, setRoleId] = useState<number | null>(null); // Khởi tạo state cho roleId
-    const router = useRouter(); // Khởi tạo useRouter
+    const [username, setUsername] = useState("");
+    const [roleId, setRoleId] = useState<number | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
-        const storedUsername = localStorage.getItem('username');
-        const storedRoleId = localStorage.getItem('roleId');
+        const storedUsername = localStorage.getItem("username");
+        const storedRoleId = localStorage.getItem("roleId");
 
         if (storedUsername) {
             setIsLoggedIn(true);
@@ -23,113 +25,85 @@ const Header = () => {
         }
 
         if (storedRoleId) {
-            setRoleId(parseInt(storedRoleId, 10)); // Chuyển đổi roleId thành số
+            setRoleId(parseInt(storedRoleId, 10));
         }
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('username');
-        localStorage.removeItem('token'); // Xóa token khi đăng xuất
-        localStorage.removeItem('roleId'); // Xóa roleId khi đăng xuất
+        localStorage.removeItem("username");
+        localStorage.removeItem("token");
+        localStorage.removeItem("roleId");
+        localStorage.removeItem("cart");
+
         setIsLoggedIn(false);
-        setUsername('');
-        setRoleId(null); // Reset roleId
-        router.push('/auth/login'); // Chuyển hướng về trang đăng nhập
+        setUsername("");
+        setRoleId(null);
+        router.push("/auth/login");
     };
 
     return (
-        <header className="bg-[#93A267] text-white py-2">
-            <div className="container mx-auto flex justify-between items-center">
-                {/* Left Section - Logo */}
-                <div className="flex items-center space-x-4">
+        <header className="backgroundheader text-white shadow-md">
+            <div className="container mx-auto flex justify-between items-center p-4">
+                {/* Logo Section */}
+                <Link href="/" passHref>
                     <Image
                         src={logo}
                         alt="Việt Nông"
                         width={64}
                         height={64}
-                        className="h-auto"
+                        className="h-auto cursor-pointer"
                     />
-                    <div className="text-sm">
-                        {roleId === 4 ? (
-                            <a href="/auth/registerseller" className="hover:underline">
-                                Trở thành người bán
-                            </a>
-                        ) : roleId === 3 ? (
-                            <a href="/" className="hover:underline">
-                                Quay về trang mua hàng
-                            </a>
-                        ) : (
-                            <a href="/auth/registerseller" className="hover:underline">
-                                 Trở thành người bán
-                            </a>
-                        )}{' '}
-                        |{' '}
-                        {roleId === 4 ? (
-                            <a href="#" className="hover:underline">
-                                Tải Ứng Dụng
-                            </a>
-                        ) : roleId === 3 ? (
-                            <a href="/Welcome" className="hover:underline">
-                                Quay Về Trang Người Bán
-                            </a>
-                        ) : (
-                            <a href="/" className="hover:underline">
-                                                                Tải Ứng Dụng
+                </Link>
 
-                            </a>
-                        )}{' '}
-                    </div>
-                </div>
-
-                {/* Middle Section - Search */}
-                <div className="flex items-center w-1/2">
+                {/* Search Section */}
+                <div className="flex items-center w-1/2 mx-4">
                     <input
                         type="text"
-                        placeholder="Tìm kiếm"
+                        placeholder="Tìm kiếm sản phẩm, danh mục..."
                         className="w-full p-2 rounded-l-full text-black focus:outline-none"
                     />
                     <Button
                         type="primary"
                         icon={<SearchOutlined />}
-                        className="rounded-r-full h-auto"
-                        style={{
-                            backgroundColor: "#93A267",
-                            borderColor: "#93A267",
-                            color: "white",
-                            padding: "4px",
-                        }}
+                        className="bg-green-700 rounded-r-full hover:bg-green-800"
                     />
+                    
                 </div>
 
-                {/* Right Section - Links */}
-                <div className="flex items-center space-x-4 text-sm">
-                    <Button type="link" className="text-white">
-                        <BellOutlined /> Thông báo
-                    </Button>
-                    <Button type="link" className="text-white">
+                {/* User Actions Section */}
+                <div className="flex items-center space-x-4">
+                    <Link href="/order" className="text-white hover:text-yellow-300 transition duration-200">
+                        Xem đơn hàng của tôi
+                    </Link>
+                    <Link href="#" className="text-white hover:text-yellow-300 transition duration-200">
                         <QuestionCircleOutlined /> Hỗ trợ
-                    </Button>
+                    </Link>
                     {isLoggedIn ? (
                         <>
-                            <span className="text-white">Xin chào, {username}</span>
-                            <Button type="link" className="text-white" onClick={handleLogout}>
+                            <span className="text-white hover:text-yellow-300 transition duration-200">
+                                Xin chào, {username}
+                            </span>
+                            <Button type="text" className="text-white hover:text-yellow-300 transition duration-200" onClick={handleLogout}>
                                 Đăng xuất
                             </Button>
                         </>
                     ) : (
                         <>
-                            <Button type="link" className="text-white" href="auth/register">
+                            <Link href="/auth/register" className="text-white hover:text-yellow-300 transition duration-200">
                                 Đăng ký
-                            </Button>
-                            <Button type="link" className="text-white" href="auth/login">
+                            </Link>
+                            <Link href="/auth/login" className="text-white hover:text-yellow-300 transition duration-200">
                                 Đăng nhập
-                            </Button>
+                            </Link>
                         </>
                     )}
                 </div>
             </div>
+            
+
+           
         </header>
     );
-}
+};
 
 export default Header;

@@ -35,6 +35,7 @@ const LoginForm = () => {
                 localStorage.setItem('token', data.data.token);
                 localStorage.setItem('roleId', data.data.account.roleId.toString());
                 localStorage.setItem('userId', data.data.account.userId.toString());
+                localStorage.setItem('username', username);
 
 
                 // Lưu tên người dùng và trạng thái "Remember Me"
@@ -42,7 +43,6 @@ const LoginForm = () => {
                     localStorage.setItem('username', username);
                     localStorage.setItem('rememberMe', 'true'); // Lưu trạng thái rememberMe
                 } else {
-                    localStorage.removeItem('username');
                     localStorage.removeItem('rememberMe'); // Xóa trạng thái rememberMe
                 }
 

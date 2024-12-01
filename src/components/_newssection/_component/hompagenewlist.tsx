@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -32,10 +32,8 @@ const NewsListhomepage: React.FC = () => {
 
   return (
     <div className="bg-gray-50 p-4">
-      {/* Error handling */}
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* Swiper for news articles */}
       <Swiper
         spaceBetween={20}
         slidesPerView={2}
@@ -50,24 +48,26 @@ const NewsListhomepage: React.FC = () => {
       >
         {newsData.length > 0 ? (
           newsData.map((news) => (
-            <SwiperSlide key={news.title}>
+            <SwiperSlide key={news.title} className="flex flex-col">
               <a
                 href={news.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                className="block relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full"
               >
                 <img
                   src={news.urlToImage || "https://via.placeholder.com/600x400"}
                   alt={news.title}
-                  className="w-full h-64 object-cover rounded-t-xl"
+                  className="w-full h-48 object-cover rounded-t-xl"
                 />
                 <div className="absolute top-4 left-4 bg-[#93A267] text-white px-3 py-1 rounded-full shadow-md">
                   Top 10 tháng
                 </div>
-                <div className="p-6 flex flex-col justify-between h-full bg-white rounded-b-xl hover:bg-gray-50 transition-all duration-200">
+                <div className="p-6 bg-white rounded-b-xl flex flex-col justify-between h-48">
                   <h3 className="text-xl font-semibold text-[#93A267] mb-2 line-clamp-2">{news.title}</h3>
-                  <p className="text-gray-700 mb-4 line-clamp-3">{news.description}</p>
+                  <p className="text-gray-700 mb-4 line-clamp-3 overflow-hidden" style={{ maxHeight: "3rem" }}>
+                    {news.description}
+                  </p>
                   <span className="text-[#93A267] font-semibold">Đọc tiếp</span>
                 </div>
               </a>
