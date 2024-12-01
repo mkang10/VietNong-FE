@@ -14,7 +14,7 @@ const Welcomepage = () => {
             Việt Nông - Kênh Người Bán là công cụ quản lý shop, giúp bạn dễ phân loại sản phẩm,
             theo dõi đơn hàng chăm sóc khách hàng và đánh giá hoạt động của shop.
           </p>
-          <Button type="link" className="btn_next mt-5" href="/ordermanagement/all">
+          <Button type="link" className="btn_next mt-5" href="/productmanagement/all">
             Tiếp theo
           </Button>
         </div>

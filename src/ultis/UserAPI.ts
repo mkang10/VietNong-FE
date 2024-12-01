@@ -1,25 +1,46 @@
-//get all
-//https://localhost:7050/api/user
+
+import { User, UserProfileUpdateDTO } from "@/type/user";
+import apiclient from "./apiclient";
+import { AxiosError } from "axios";
 
 
-//put user
-//https://localhost:7050/api/user/1
 
-//delete user
-//https://localhost:7050/api/user/1
+export const getUserById = async (userId: number): Promise<User> => {
+    try {
+        const response = await apiclient.get(`/user/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user by id:', error);
+        throw new Error('Error fetching user by id');
+    }
+};
 
-//get username (truyen string)
-//https://localhost:7050/api/user/username/12
+// Update user profile API
+export const updateUserProfileApi = async (userId: number, formData: UserProfileUpdateDTO) => {
+    try {
+        const formDataToSend = new FormData();
 
-//patch
-//https://localhost:7050/api/user/1/status
+        formDataToSend.append('Email', formData.email);
+        formDataToSend.append('FullName', formData.fullName);
+        formDataToSend.append('PhoneNumber', formData.phoneNumber);
+        formDataToSend.append('Address', formData.address);
+        formDataToSend.append('Gender', formData.gender);
+        formDataToSend.append('DateOfBirth', formData.dateOfBirth);
 
-//get 
-//https://localhost:7050/api/user/profile
+        if (formData.profileImage) {
+            formDataToSend.append('ProfileImage', formData.profileImage);
+        }
 
-//put
-//https://localhost:7050/api/user/profile
+        const response = await apiclient.put(`/user/profile/${userId}`, formDataToSend, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
 
-//không sử dụng https://localhost:7050/api 
-
-//sử dụng https://apivietnong-f9a8ecdydsdmebb3.canadacentral-01.azurewebsites.net/api trong apiclient
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        console.error('Error updating user profile:', axiosError.response?.data || axiosError.message);
+        throw axiosError;
+    }
+};

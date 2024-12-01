@@ -9,7 +9,6 @@ const HeaderNews = () => {
           className="text-4xl font-bold mb-6" 
           style={{
             color: '#93A267', // Màu xanh lá như trong hình
-            textShadow: '2px 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(0, 0, 0, 0.3)', // Bóng mờ tạo hiệu ứng 3D
             letterSpacing: '1px', // Khoảng cách giữa các chữ
           }}
         >
