@@ -1,12 +1,11 @@
 import React from 'react';
-import RegisterForm from './_components/RegisterForm';
+import Register from './_components/Register';
 
 const Page: React.FC = () => {
   return (
     <div className='Container-01'>
         
-        <RegisterForm></RegisterForm>
-       
+       <Register></Register>
       
        
     </div>

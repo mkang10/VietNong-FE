@@ -1,16 +1,16 @@
 import dynamic from 'next/dynamic';
 import React, { Suspense } from "react";
 
-export const LoginForm = dynamic(() => import('./LoginFormComponent'), { 
+export const Register = dynamic(() => import('./RegisterForm'), { 
     ssr: false // Tắt server-side rendering
 });
 
  const LoginFormWrapper: React.FC = () => {
     return (
       <Suspense fallback={<div>Đang tải...</div>}>
-        <LoginForm />
+        <Register />
       </Suspense>
     );
   };
 
-  export default LoginForm
+  export default Register

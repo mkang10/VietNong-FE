@@ -5,7 +5,6 @@ const Page: React.FC = () => {
   return (
     <div className='Container-01'>
         
-        <RegisterSellerForm></RegisterSellerForm>
        
       
        
