@@ -1,9 +1,9 @@
 "use client";
 import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 const PaymentFailed: React.FC = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const code = searchParams.get('code');
@@ -32,4 +32,13 @@ const PaymentFailed: React.FC = () => {
   );
 };
 
-export default PaymentFailed;
+// Bọc PaymentFailed trong Suspense
+const PaymentFailedWrapper: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <PaymentFailed />
+    </Suspense>
+  );
+};
+
+export default PaymentFailedWrapper;

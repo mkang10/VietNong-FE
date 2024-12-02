@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 const PaymentSuccess: React.FC = () => {
   const router = useRouter();
@@ -45,4 +46,13 @@ const PaymentSuccess: React.FC = () => {
   );
 };
 
-export default PaymentSuccess;
+// Bọc PaymentSuccess trong Suspense
+const PaymentSuccessWrapper: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <PaymentSuccess />
+    </Suspense>
+  );
+};
+
+export default PaymentSuccessWrapper;

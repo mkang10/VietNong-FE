@@ -12,6 +12,7 @@ import side1 from '../assets/side1.jpg';
 import side2 from '../assets/side2.jpg';
 import { Category } from "@/type/Category";
 import { Product } from "@/type/Product";
+import { Suspense } from 'react';
 
 const ProductComponent = () => {
   const router = useRouter();
@@ -38,6 +39,7 @@ const ProductComponent = () => {
 
     fetchCategories();
   }, []);
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -216,7 +218,7 @@ const ProductComponent = () => {
                 </p>
                 <button
                   className="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg transition-colors duration-300 hover:bg-green-700"
-                
+                  onClick={() => handleViewDetails(product.productId)}
                 >
                   Xem chi tiết
                 </button>
@@ -252,4 +254,13 @@ const ProductComponent = () => {
   );
 };
 
-export default ProductComponent;
+// Bọc ProductComponent trong Suspense
+const ProductComponentWrapper: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <ProductComponent />
+    </Suspense>
+  );
+};
+
+export default ProductComponentWrapper;

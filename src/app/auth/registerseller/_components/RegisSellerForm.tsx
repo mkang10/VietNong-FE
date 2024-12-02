@@ -1,12 +1,14 @@
-"use client";
-import React, { useState, useEffect } from "react";
+"use client"; // Đánh dấu component này là Client Component
+
+import React, { useState, useEffect, Suspense } from "react";
 import './RegisSellerForm.css';
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useRouter } from 'next/navigation'; // Import useRouter để điều hướng
 import { RegisterSellerRequest } from "@/type/auth";
 import { registerSeller } from "@/ultis/AuthAPI";
 import axios from 'axios';
+
 const RegisterSellerForm = () => {
     const [shopName, setShopName] = useState('');
     const [shopAddress, setShopAddress] = useState('');
@@ -70,30 +72,28 @@ const RegisterSellerForm = () => {
             shopImage: shopImage!
         };
 
-       
-    try {
-        const sellerResponse = await registerSeller(registrationData);
-        console.log('Seller Response:', sellerResponse); // Log phản hồi
+        try {
+            const sellerResponse = await registerSeller(registrationData);
+            console.log('Seller Response:', sellerResponse); // Log phản hồi
 
-        // Kiểm tra nếu sellerResponse có thông tin cần thiết
-        if (sellerResponse && sellerResponse.sellerId) {
-            // Nếu tạo người bán thành công, chuyển hướng
-            router.push('/Welcome');
-        } else {
-            setError(sellerResponse.message || 'Tạo người bán không thành công');
+            // Kiểm tra nếu sellerResponse có thông tin cần thiết
+            if (sellerResponse && sellerResponse.sellerId) {
+                // Nếu tạo người bán thành công, chuyển hướng
+                router.push('/Welcome');
+            } else {
+                setError(sellerResponse.message || 'Tạo người bán không thành công');
+            }
+        } catch (err) {
+            console.error('Error:', err); // Log lỗi
+            if (axios.isAxiosError(err)) {
+                const errorMessage = err.response?.data?.message || "Đã xảy ra lỗi, vui lòng thử lại!";
+                setError(errorMessage);
+            } else if (err instanceof Error) {
+                setError("Đã xảy ra lỗi: " + err.message);
+            } else {
+                setError("Đã xảy ra lỗi, vui lòng thử lại!");
+            }
         }
-    } catch (err) {
-        console.error('Error:', err); // Log lỗi
-        if (axios.isAxiosError(err)) {
-            const errorMessage = err.response?.data?.message || "Đã xảy ra lỗi, vui lòng thử lại!";
-            setError(errorMessage);
-        } else if (err instanceof Error) {
-            setError("Đã xảy ra lỗi: " + err.message);
-        } else {
-            setError("Đã xảy ra lỗi, vui lòng thử lại!");
-        }
-    }
-
     };
 
     return (
@@ -156,11 +156,19 @@ const RegisterSellerForm = () => {
                         </label>
                     </div>
                     <button type="submit">Register Seller</button>
-            
                 </form>
             </div>
         </div>
     );
 }
 
-export default RegisterSellerForm;
+// Bọc RegisterSellerForm trong Suspense
+const RegisterSellerFormWrapper: React.FC = () => {
+    return (
+        <Suspense fallback={<div>Đang tải...</div>}>
+            <RegisterSellerForm />
+        </Suspense>
+    );
+}
+
+export default RegisterSellerFormWrapper;

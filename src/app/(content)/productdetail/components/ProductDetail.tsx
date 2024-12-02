@@ -6,6 +6,7 @@ import Header from "@/layout/_component/Header/Header";
 import Navbar from "@/layout/_component/Header/navbar/Navbar";
 import productDefault from '../assets/product.jpeg'; // Ảnh mặc định
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 const ProductDetail = () => {
   const searchParams = useSearchParams();
@@ -155,4 +156,13 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+// Bọc ProductDetail trong Suspense
+const ProductDetailWrapper: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Đang tải...</div>}>
+      <ProductDetail />
+    </Suspense>
+  );
+};
+
+export default ProductDetailWrapper;
