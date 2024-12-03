@@ -7,17 +7,23 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import logo from "../Header/asset/logo.png";
 import Link from "next/link";
-import '../Sidebar/sidebar.css'
+import '../Sidebar/sidebar.css';
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
     const [roleId, setRoleId] = useState<number | null>(null);
     const router = useRouter();
+    const [userId, setUserId] = useState<string | null>(null); // Chỉ định kiểu cho userId
 
     useEffect(() => {
         const storedUsername = localStorage.getItem("username");
         const storedRoleId = localStorage.getItem("roleId");
+        const id = localStorage.getItem('userId');
+
+        if (id) {
+            setUserId(id);
+        }
 
         if (storedUsername) {
             setIsLoggedIn(true);
@@ -29,6 +35,14 @@ const Header = () => {
         }
     }, []);
 
+    const handleButtonClick = () => {
+        if (userId) {
+            router.push(`/user/${userId}`);
+        } else {
+            console.error("User ID not found");
+        }
+    };
+
     const handleLogout = () => {
         localStorage.removeItem("username");
         localStorage.removeItem("token");
@@ -38,6 +52,7 @@ const Header = () => {
         setIsLoggedIn(false);
         setUsername("");
         setRoleId(null);
+        setUserId(null); // Cập nhật userId về null khi đăng xuất
         router.push("/auth/login");
     };
 
@@ -67,7 +82,6 @@ const Header = () => {
                         icon={<SearchOutlined />}
                         className="bg-green-700 rounded-r-full hover:bg-green-800"
                     />
-                    
                 </div>
 
                 {/* User Actions Section */}
@@ -80,9 +94,12 @@ const Header = () => {
                     </Link>
                     {isLoggedIn ? (
                         <>
-                            <span className="text-white hover:text-yellow-300 transition duration-200">
-                                Xin chào, {username}
-                            </span>
+                            <Button onClick={handleButtonClick}>
+                                <span className="text-white hover:text-yellow-300 transition duration-200">
+                                    Xin chào, {username}
+                                </span>
+                            </Button>
+
                             <Button type="text" className="text-white hover:text-yellow-300 transition duration-200" onClick={handleLogout}>
                                 Đăng xuất
                             </Button>
@@ -99,9 +116,6 @@ const Header = () => {
                     )}
                 </div>
             </div>
-            
-
-           
         </header>
     );
 };
