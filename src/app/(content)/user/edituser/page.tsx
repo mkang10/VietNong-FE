@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 
 const UpdateUserProfile: React.FC = () => {
     const router = useRouter();
-    const { id: userId } = useParams();
+    const { id } = useParams(); // Lấy id từ URL
 
     const [formData, setFormData] = useState<UserProfileUpdateDTO>({
         email: "",
@@ -25,11 +25,11 @@ const UpdateUserProfile: React.FC = () => {
     const [countdown, setCountdown] = useState<number | null>(null);
 
     useEffect(() => {
-        if (!userId) return;
+        if (!id) return;
 
         const fetchUserData = async () => {
             try {
-                const userData = await getUserById(Number(userId));
+                const userData = await getUserById(Number(id)); // Sử dụng id
                 setFormData({
                     email: userData.email,
                     fullName: userData.fullName,
@@ -45,7 +45,7 @@ const UpdateUserProfile: React.FC = () => {
         };
 
         fetchUserData();
-    }, [userId]);
+    }, [id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -60,7 +60,7 @@ const UpdateUserProfile: React.FC = () => {
     };
 
     const handleBack = () => {
-        router.push(`/user/${userId}`); // Quay lại trang thông tin người dùng
+        router.push(`/user/${id}`); // Quay lại trang thông tin người dùng
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -79,14 +79,14 @@ const UpdateUserProfile: React.FC = () => {
             return;
         }
 
-        if (!userId) {
+        if (!id) {
             setResponseMessage("Không tìm thấy thông tin người dùng.");
             setIsLoading(false);
             return;
         }
 
         try {
-            await updateUserProfileApi(Number(userId), formData);
+            await updateUserProfileApi(Number(id), formData); // Sử dụng id
             setResponseMessage("Thông tin của bạn đã được cập nhật thành công!");
             setCountdown(5); // Đặt countdown về 5 giây
 
@@ -94,7 +94,7 @@ const UpdateUserProfile: React.FC = () => {
                 setCountdown((prev) => {
                     if (prev === 1) {
                         clearInterval(countdownInterval);
-                        router.push(`/user/${userId}`); // Quay lại trang thông tin người dùng
+                        router.push(`/user/${id}`); // Quay lại trang thông tin người dùng
                         return null;
                     }
                     return prev ? prev - 1 : null;
@@ -199,7 +199,6 @@ const UpdateUserProfile: React.FC = () => {
                         >
                             {isLoading ? "Đang Cập Nhật..." : "Cập Nhật Hồ Sơ"}
                         </button>
-                     
                     </div>
                     <div>
                         <button
