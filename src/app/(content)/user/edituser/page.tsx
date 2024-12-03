@@ -1,16 +1,20 @@
-"use client"; // Đảm bảo rằng đây là một Client Component
+"use client"; // Ensure this is a Client Component
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { UserProfileUpdateDTO } from "@/type/user";
 import { updateUserProfileApi, getUserById } from "@/ultis/UserAPI";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation';
 
+const Search = () => {
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id'); // Get the 'id' from query parameters
+
+    return id; // You can return or process the id as needed
+};
 
 const UpdateUserProfile: React.FC = () => {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const id = searchParams.get('id');
     const [formData, setFormData] = useState<UserProfileUpdateDTO>({
         email: "",
         fullName: "",
@@ -24,13 +28,20 @@ const UpdateUserProfile: React.FC = () => {
     const [responseMessage, setResponseMessage] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [countdown, setCountdown] = useState<number | null>(null);
+    
+    // Wrap the Search component in Suspense
+    const id = (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Search />
+        </Suspense>
+    );
 
     useEffect(() => {
         if (!id) return;
 
         const fetchUserData = async () => {
             try {
-                const userData = await getUserById(Number(id)); // Sử dụng id
+                const userData = await getUserById(Number(id)); // Use the id
                 setFormData({
                     email: userData.email,
                     fullName: userData.fullName,
@@ -61,7 +72,7 @@ const UpdateUserProfile: React.FC = () => {
     };
 
     const handleBack = () => {
-        router.push(`/user/${id}`); // Quay lại trang thông tin người dùng
+        router.push(`/user/${id}`); // Back to user info page
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -87,20 +98,20 @@ const UpdateUserProfile: React.FC = () => {
         }
 
         try {
-            await updateUserProfileApi(Number(id), formData); // Sử dụng id
+            await updateUserProfileApi(Number(id), formData); // Use the id
             setResponseMessage("Thông tin của bạn đã được cập nhật thành công!");
-            setCountdown(5); // Đặt countdown về 5 giây
+            setCountdown(5); // Set countdown to 5 seconds
 
             const countdownInterval = setInterval(() => {
                 setCountdown((prev) => {
                     if (prev === 1) {
                         clearInterval(countdownInterval);
-                        router.push(`/user/${id}`); // Quay lại trang thông tin người dùng
+                        router.push(`/user/${id}`); // Back to user info page
                         return null;
                     }
                     return prev ? prev - 1 : null;
                 });
-            }, 1000); // Cập nhật mỗi giây
+            }, 1000); // Update every second
             
         } catch (error) {
             setResponseMessage("Đã xảy ra lỗi khi cập nhật thông tin.");
