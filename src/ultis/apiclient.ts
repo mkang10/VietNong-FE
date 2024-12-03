@@ -14,7 +14,7 @@ import axios, { AxiosInstance } from 'axios';
 
 //localhost
 const apiclient: AxiosInstance = axios.create({
-  baseURL: 'https://localhost:7050/api',
+  baseURL: 'http://www.vietnong.somee.com/api',
   headers: {
     'Content-Type': 'application/json;odata.metadata=minimal;odata.streaming=true',
     Accept: '*/*',
