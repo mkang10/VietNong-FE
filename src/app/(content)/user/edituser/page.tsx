@@ -4,12 +4,13 @@ import React, { useState, useEffect } from "react";
 import { UserProfileUpdateDTO } from "@/type/user";
 import { updateUserProfileApi, getUserById } from "@/ultis/UserAPI";
 import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
+
 
 const UpdateUserProfile: React.FC = () => {
     const router = useRouter();
-    const { id } = useParams(); // Lấy id từ URL
-
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
     const [formData, setFormData] = useState<UserProfileUpdateDTO>({
         email: "",
         fullName: "",
