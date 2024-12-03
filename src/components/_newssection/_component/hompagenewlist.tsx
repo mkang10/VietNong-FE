@@ -1,15 +1,23 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import apiclient from "@/ultis/apiclient";
 
 interface Article {
+  source: {
+    id: string;
+    name: string;
+  };
+  author: string;
   title: string;
-  publishedAt: string;
   description: string;
-  urlToImage: string;
   url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string; // Nếu cần thiết
 }
 
 const NewsListhomepage: React.FC = () => {
@@ -19,10 +27,18 @@ const NewsListhomepage: React.FC = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get(`https://newsapi.org/v2/everything?q=agriculture&apiKey=6f7f2261d23643a48779f0aa0c32342c&pageSize=10&sortBy=popularity`);
-        setNewsData(response.data.articles);
+        const response = await apiclient.get(`/news/by-sort?pageSize=10`);
+        
+        console.log(response.data); // In ra phản hồi để kiểm tra cấu trúc
+        
+        // Kiểm tra xem phản hồi có phải là mảng articles không
+        if (Array.isArray(response.data)) {
+          setNewsData(response.data); // Đặt dữ liệu
+        } else {
+          setError('Dữ liệu không hợp lệ');
+        }
       } catch (error) {
-        setError('Error loading news articles');
+        setError('Lỗi khi tải bài viết');
         console.error('Error loading news articles:', error);
       }
     };
@@ -74,7 +90,7 @@ const NewsListhomepage: React.FC = () => {
             </SwiperSlide>
           ))
         ) : (
-          <p>No news articles available</p>
+          <p>Không có bài viết nào</p>
         )}
       </Swiper>
     </div>

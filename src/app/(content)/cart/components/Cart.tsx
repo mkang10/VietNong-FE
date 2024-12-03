@@ -89,8 +89,8 @@ const Cart: React.FC = () => {
         price: item.price
       })),
       description: "Order description",
-      returnUrl: "http://localhost:3000/orderstate/payment-succes?code=00&id=8e423416d50f4ff8b137cc08e4908d31&status=SUCCESS&orderCode=722211",
-      cancelUrl: "http://localhost:3000/orderstate/payment-failed?code=00&id=8e423416d50f4ff8b137cc08e4908d31&cancel=true&status=CANCELLED&orderCode=722211"
+      returnUrl: "http://https://vietnong.id.vn/orderstate/payment-succes?code=00&id=8e423416d50f4ff8b137cc08e4908d31&status=SUCCESS&orderCode=722211",
+      cancelUrl: "http://https://vietnong.id.vn/orderstate/payment-failed?code=00&id=8e423416d50f4ff8b137cc08e4908d31&cancel=true&status=CANCELLED&orderCode=722211"
     };
   
     try {

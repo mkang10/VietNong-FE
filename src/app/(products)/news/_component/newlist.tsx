@@ -3,41 +3,49 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewsItem from "./newsItem";
+import apiclient from "@/ultis/apiclient";
 
 interface Article {
+  source: {
+    id: string;
+    name: string;
+  };
+  author: string;
   title: string;
-  publishedAt: string;
   description: string;
-  urlToImage: string;
   url: string; // Thêm thuộc tính url
-
+  urlToImage: string; // Thêm thuộc tính urlToImage
+  publishedAt: string;
+  content: string; // Nếu cần thiết
 }
 
 const NewsList: React.FC = () => {
   const [newsData, setNewsData] = useState<Article[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [pageSize] = useState<number>(9); // Number of articles per page
+  const [pageSize] = useState<number>(9); // Số lượng bài viết mỗi trang
   const [totalCount, setTotalCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get(`https://newsapi.org/v2/everything?q=agriculture&apiKey=6f7f2261d23643a48779f0aa0c32342c&page=${currentPage}&pageSize=${pageSize}`);
-        setNewsData(response.data.articles);
-        setTotalCount(response.data.totalResults);
+        const response = await apiclient.get(`news?currentPage=${currentPage}&pageSize=${pageSize}`);
+        
+        // Kiểm tra phản hồi từ API
+        if (response.data && Array.isArray(response.data.articles)) {
+          setNewsData(response.data.articles);
+          setTotalCount(response.data.totalCount); // Cập nhật tổng số bài viết
+        } else {
+          setError('Dữ liệu không hợp lệ');
+        }
       } catch (error) {
-        setError('Error loading news articles');
+        setError('Lỗi khi tải bài viết');
         console.error('Error loading news articles:', error);
       }
     };
 
     fetchNews();
   }, [currentPage, pageSize]);
-
-  useEffect(() => {
-    window.history.pushState(null, '', `?page=${currentPage}`);
-  }, [currentPage]);
 
   const totalPages = Math.ceil(totalCount / pageSize);
 
@@ -68,8 +76,8 @@ const NewsList: React.FC = () => {
         <button
           key={i}
           onClick={() => handlePageClick(i)}
-          className={`px-3 py-2 rounded-lg transition-colors duration-200 ${
-            i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:cursor-pointer'
+          className={`px-3 py-1 rounded-lg transition-colors duration-200 ${
+            i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
           }`}
         >
           {i}
@@ -82,16 +90,19 @@ const NewsList: React.FC = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen p-4">
-      {/* Error handling */}
-      {error && <p className="text-red-500">{error}</p>}
+      <header className="text-center mb-6">
+        <h1 className="text-3xl font-bold">Tin Tức Nông Nghiệp</h1>
+        <p className="text-gray-600">Cập nhật mới nhất về nông nghiệp</p>
+      </header>
 
-      {/* News articles */}
+      {error && <p className="text-red-500 text-center">{error}</p>}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {newsData.length > 0 ? (
           newsData.map((news) => (
             <div 
               key={news.title} 
-              className="bg-white shadow-md rounded-lg p-4 transition-transform duration-200 hover:scale-105 cursor:pointer"
+              className="bg-white shadow-md rounded-lg p-4 transition-transform duration-200 hover:scale-105 cursor-pointer"
             >
               <NewsItem
                 title={news.title}
@@ -99,12 +110,11 @@ const NewsList: React.FC = () => {
                 description={news.description}
                 imageUrl={news.urlToImage}
                 url={news.url} // Đảm bảo bạn truyền vào prop url
-
               />
             </div>
           ))
         ) : (
-          <p>No news articles available</p>
+          <p className="text-center col-span-full">Không có bài viết nào</p>
         )}
       </div>
 
@@ -113,7 +123,7 @@ const NewsList: React.FC = () => {
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-400 transition-colors duration-200 cursor-pointer"
+          className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-400 transition-colors duration-200"
         >
           Trang Trước
         </button>
@@ -123,7 +133,7 @@ const NewsList: React.FC = () => {
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 cursor-pointer"
+          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
         >
           Trang Tiếp
         </button>

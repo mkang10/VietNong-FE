@@ -23,7 +23,6 @@ const Page: React.FC = () => {
             <Header />
             <Navbar />
             <div className='ml-4 mt-2'>
-            <HeaderNews />
             <NewsList />
             </div>
            
