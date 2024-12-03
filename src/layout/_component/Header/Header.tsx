@@ -94,7 +94,7 @@ const Header = () => {
                     </Link>
                     {isLoggedIn ? (
                         <>
-                            <Button className="text-white hover:text-yellow-300 transition duration-200" onClick={handleButtonClick}>
+                            <Button type="text" className="text-white hover:text-yellow-300 transition duration-200" onClick={handleButtonClick}>
                                 <span >
                                     Xin chào, {username}
                                 </span>
