@@ -79,7 +79,7 @@ const UserProfilePage: React.FC = () => {
                     </div>
                     <button
                         className="w-full mt-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-                        onClick={() => router.push(`/user/edituser/${userId}`)}
+                        onClick={() => router.push(`/user/edituser?id=${userId}`)}
                     >
                         Chỉnh Sửa Thông Tin Cá Nhân
                     </button>

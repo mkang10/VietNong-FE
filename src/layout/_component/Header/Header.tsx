@@ -37,7 +37,7 @@ const Header = () => {
 
     const handleButtonClick = () => {
         if (userId) {
-            router.push(`/user/${userId}`);
+            router.push(`/user/?id=${userId}`);
         } else {
             console.error("User ID not found");
         }
