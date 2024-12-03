@@ -89,8 +89,8 @@ const Cart: React.FC = () => {
         price: item.price
       })),
       description: "Order description",
-      returnUrl: "/",
-      cancelUrl: "http://https://vietnong.id.vn/orderstate/payment-failed"
+      returnUrl: "https://vietnong.id.vn/orderstate/payment-succes",
+      cancelUrl: "https://vietnong.id.vn/orderstate/payment-failed"
     };
   
     try {
