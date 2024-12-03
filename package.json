@@ -1,4 +1,6 @@
 {
+  "proxy": "http://www.vietnong.somee.com",
+
   "name": "vietnong-fe",
   "version": "0.1.0",
   "private": true,
@@ -34,4 +36,5 @@
     "tailwindcss": "^3.4.10",
     "typescript": "^5.7.2"
   }
+  
 }

@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 
 // Khởi tạo axios với URL gốc của API
 const odataClient: AxiosInstance = axios.create({
-  baseURL: 'http://www.vietnong.somee.com/odata',
+  baseURL: 'https://www.vietnong.somee.com/odata',
   headers: {
     'Content-Type': 'application/json;odata.metadata=minimal;odata.streaming=true',
     Accept: '*/*',
